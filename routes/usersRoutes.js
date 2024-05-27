@@ -39,7 +39,7 @@ router.post('/save-flow', async (req, res) => {
 
     const [results] = await connection.execute(
       'INSERT INTO react_flow (client_id, flow_name, flow_json, last_updated_json, added_date, updated_date, active_flag) VALUES (?, ?, ?, ?, ?, ?, ?)',
-      [flow.client_id, flow.flow_name, JSON.stringify(flow.flow_json), JSON.stringify(flow.flow_json), date, date, flow.active_flag || 1]
+      [flow.clientId, flow.flow_name, JSON.stringify(flow.flow_json), JSON.stringify(flow.flow_json), date, date, flow.active_flag || 1]
     );
 
     res.status(200).json({ success: true, result: { id: results.insertId } });
