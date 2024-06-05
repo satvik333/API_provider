@@ -24,7 +24,10 @@ router.get('/get-single-api/:id', async (req, res) => {
 
 router.get('/get-all-apis', async (req, res) => {
   try {
-    const [results] = await connection.execute('SELECT * FROM api_handler WHERE del_flag = ?', [0]);
+    const [results] = await connection.execute(
+      'SELECT id, api_name FROM api_handler WHERE del_flag = ? AND active_flag = ?', 
+      [0, 1]
+    );
     res.status(200).json({
       success: true,
       result: results
