@@ -4,7 +4,7 @@ const usersRoute = require('./routes/usersRoutes');
 const apiHandler = require('./routes/apiHandlerRoutes');
 
 const app = express();
-const port = 3300;
+const port = 3002;
 
 app.use(cors());
 app.use(express.json());
