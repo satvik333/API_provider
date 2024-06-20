@@ -6,6 +6,16 @@ const cors = require('cors');
 router.use(cors());
 router.use(express.json());
 
+router.get('/get-tables', async (req, res) => {
+  try {
+    const [results] = await connection.execute('SHOW tables');
+    res.status(200).json({ success: true, result: results });
+  } catch (error) {
+    console.error('Error fetching flows:', error);
+    res.status(500).json({ success: false, error: 'Internal Server Error' });
+  }
+});
+
 router.get('/get-flows/:client_id', async (req, res) => {
   const clientId = req.params.client_id;
   try {
