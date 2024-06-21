@@ -23,7 +23,7 @@ router.use(fileUpload());
 
 // const upload = multer({ storage });
 
-router.get('/get-single-api/:id', async (req, res) => {
+router.get('/api/get-single-api/:id', async (req, res) => {
   const id = req.params.id;
   try {
     const [results] = await connection.execute('SELECT * FROM api_handler WHERE id = ? AND del_flag = ?', [id, 0]);
@@ -39,7 +39,7 @@ router.get('/get-single-api/:id', async (req, res) => {
   }
 });
 
-router.get('/get-all-apis', async (req, res) => {
+router.get('/api/get-all-apis', async (req, res) => {
   try {
     const [results] = await connection.execute(
       'SELECT id, name FROM api_handler WHERE del_flag = ? AND active_flag = ?', 
@@ -77,7 +77,7 @@ router.get('/get-all-apis', async (req, res) => {
 //   });
 // });
 
-  router.post('/upload-excel', async (req, res) => {
+  router.post('/api/upload-excel', async (req, res) => {
     if (!req.files || !req.files.file) {
       return res.status(400).send({ message: 'No file uploaded' });
     }
