@@ -8,7 +8,11 @@ router.use(express.json());
 
 router.get('/get-tables', async (req, res) => {
   try {
-    const [results] = await connection.execute('SHOW tables');
+    const [results] = await connection.execute(`
+    SELECT TABLE_NAME, COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH
+    FROM INFORMATION_SCHEMA.COLUMNS 
+    WHERE TABLE_SCHEMA = 'kapture_product_db'
+  `);
     res.status(200).json({ success: true, result: results });
   } catch (error) {
     console.error('Error fetching flows:', error);

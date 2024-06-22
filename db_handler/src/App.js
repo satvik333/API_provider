@@ -1,22 +1,16 @@
-import LoginPage from "./components/loginPage";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Dashboard from "./components/dashboard";
-import React, { useState } from "react";
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import LoginPage from './components/loginPage';
+import Dashboard from './components/dashboard';
+import TableAnalyser from './components/tableAnalyser';
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route
-          exact
-          path="/"
-          element={<LoginPage />}
-        />
-        <Route
-          exact
-          path="/dashboard"
-          element={<Dashboard />}
-        />
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/table-analyser" element={<TableAnalyser />} />
       </Routes>
     </Router>
   );
