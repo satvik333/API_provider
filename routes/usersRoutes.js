@@ -6,7 +6,7 @@ const cors = require('cors');
 router.use(cors());
 router.use(express.json());
 
-router.get('/api/get-tables', async (req, res) => {
+router.get('/get-tables', async (req, res) => {
   try {
     const [results] = await connection.execute('SHOW tables');
     res.status(200).json({ success: true, result: results });
@@ -16,7 +16,7 @@ router.get('/api/get-tables', async (req, res) => {
   }
 });
 
-router.get('/api/get-flows/:client_id', async (req, res) => {
+router.get('/get-flows/:client_id', async (req, res) => {
   const clientId = req.params.client_id;
   try {
     const [results] = await connection.execute('SELECT id, flow_name, flow_json FROM react_flow WHERE client_id = ? AND del_flag = ?', [clientId, 0]);
@@ -27,7 +27,7 @@ router.get('/api/get-flows/:client_id', async (req, res) => {
   }
 });
 
-router.get('/api/get-single-flow/:client_id/:flow_id', async (req, res) => {
+router.get('/get-single-flow/:client_id/:flow_id', async (req, res) => {
   const clientId = req.params.client_id;
   const flowId = req.params.flow_id;
   try {
@@ -42,7 +42,7 @@ router.get('/api/get-single-flow/:client_id/:flow_id', async (req, res) => {
   }
 });
 
-router.post('/api/save-flow', async (req, res) => {
+router.post('/save-flow', async (req, res) => {
   try {
     const flow = req.body;
     const date = new Date();
@@ -59,7 +59,7 @@ router.post('/api/save-flow', async (req, res) => {
   }
 });
 
-router.post('/api/update-flow', async (req, res) => {
+router.post('/update-flow', async (req, res) => {
   try {
     const flow = req.body;
     const date = new Date();
@@ -85,7 +85,7 @@ router.post('/api/update-flow', async (req, res) => {
   }
 });
 
-router.delete('/api/delete-flow/:flow_id', async (req, res) => {
+router.delete('/delete-flow/:flow_id', async (req, res) => {
   const flowId = req.params.flow_id;
   try {
     await connection.execute('UPDATE react_flow SET active_flag = 0, del_flag = 1 WHERE id = ?', [flowId]);
