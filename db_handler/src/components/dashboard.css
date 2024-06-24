@@ -24,8 +24,7 @@ body, html {
     align-items: center;
     justify-content: center;
     height: 100%;
-    padding-top: 80px; /* Add padding to avoid content being hidden under the header */
-    background-color: #f0f2f5;
+    padding-top: 80px; 
 }
 
 .buttons {
