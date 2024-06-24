@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getTablesData } from '../services/apiHandlerService';
-import './TableAnalyser.css'; // Import custom CSS for styling
+import './TableAnalyser.css';
 
 const TableAnalyser = () => {
   const [tableData, setTableData] = useState([]);
@@ -13,14 +13,14 @@ const TableAnalyser = () => {
   const fetchTableData = async () => {
     try {
       const response = await getTablesData();
-      setTableData(response.data.result);
+      setTableData(response);
     } catch (error) {
       console.error('Error fetching table data', error);
     }
   };
 
-  const handleToggle = (index) => {
-    setExpanded(expanded === index ? null : index);
+  const handleToggle = (tableName) => {
+    setExpanded(expanded === tableName ? null : tableName);
   };
 
   const extractTableNames = (data) => {
@@ -33,38 +33,45 @@ const TableAnalyser = () => {
 
   return (
     <div className="table-analyser-container">
-      <h1 className="title">Tables</h1>
-      {tableNames.map((tableName, index) => (
-        <div key={index} className="accordion">
-          <div className="accordion-summary" onClick={() => handleToggle(index)}>
+      <div className="table-list">
+        <h1 className="title">Tables</h1>
+        {tableNames.map((tableName, index) => (
+          <div
+            key={index}
+            className={`accordion-summary ${expanded === tableName ? 'active' : ''}`}
+            onClick={() => handleToggle(tableName)}
+          >
             <h2>{tableName}</h2>
           </div>
-          {expanded === index && (
-            <div className="accordion-details">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Column Name</th>
-                    <th>Data Type</th>
-                    <th>Length</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tableData
-                    .filter((entry) => entry.TABLE_NAME === tableName)
-                    .map((entry, idx) => (
-                      <tr key={idx}>
-                        <td>{entry.COLUMN_NAME}</td>
-                        <td>{entry.DATA_TYPE}</td>
-                        <td>{entry.CHARACTER_MAXIMUM_LENGTH}</td>
-                      </tr>
-                    ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      ))}
+        ))}
+      </div>
+      <div className="table-details">
+        {expanded && (
+          <div className="accordion-details">
+            <h2>{expanded}</h2>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th>Column Name</th>
+                  <th>Data Type</th>
+                  <th>Length</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableData
+                  .filter((entry) => entry.TABLE_NAME === expanded)
+                  .map((entry, idx) => (
+                    <tr key={idx}>
+                      <td>{entry.COLUMN_NAME}</td>
+                      <td>{entry.DATA_TYPE}</td>
+                      <td>{entry.CHARACTER_MAXIMUM_LENGTH}</td>
+                    </tr>
+                  ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

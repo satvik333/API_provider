@@ -6,20 +6,6 @@ const cors = require('cors');
 router.use(cors());
 router.use(express.json());
 
-router.get('/get-tables', async (req, res) => {
-  try {
-    const [results] = await connection.execute(`
-    SELECT TABLE_NAME, COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH
-    FROM INFORMATION_SCHEMA.COLUMNS 
-    WHERE TABLE_SCHEMA = 'kapture_product_db'
-  `);
-    res.status(200).json({ success: true, result: results });
-  } catch (error) {
-    console.error('Error fetching flows:', error);
-    res.status(500).json({ success: false, error: 'Internal Server Error' });
-  }
-});
-
 router.get('/get-flows/:client_id', async (req, res) => {
   const clientId = req.params.client_id;
   try {
