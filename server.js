@@ -3,12 +3,15 @@ const cors = require('cors');
 const usersRoute = require('./routes/usersRoutes');
 const apiHandler = require('./routes/apiHandlerRoutes');
 const dbRoutes = require('./routes/databaseRoutes');
+const checkPostRequest = require('./middleware/checkPostRequest');
 
 const app = express();
 const port = 8080;
 
 app.use(cors());
 app.use(express.json());
+
+app.use(checkPostRequest);
 
 app.use('/', usersRoute);
 
