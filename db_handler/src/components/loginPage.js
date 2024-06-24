@@ -26,7 +26,7 @@ function LoginPage() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1 style={{ backgroundColor: 'e03038', color: '#e03038' }}>DB Manager</h1>
+      <h1 style={{ backgroundColor: 'e03038', color: 'darkblue' }}>DB Manager</h1>
       <label>
         Username:
         <input type="text" value={username} onChange={handleUsernameChange} />
