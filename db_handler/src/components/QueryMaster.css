@@ -78,8 +78,8 @@ html, body {
   }
   
   .form-control:focus {
-    border-color: #009688;
-    box-shadow: 0 0 0 0.1rem rgba(1, 150, 136, 0.24);
+    border-color: blue;
+    box-shadow: 0 0 0 0.1rem rgba(3, 80, 247, 0.24);
     outline: 0;
     background-color: #fff;
   }
@@ -115,7 +115,7 @@ html, body {
   }
   
   .btn {
-    background: #009688;
+    background: #007bff;
     color: #fff;
     padding: 7px 20px!important;
     font-size: 17px;
@@ -124,7 +124,7 @@ html, body {
   }
   
   .btn:hover, .btn:active, .btn:focus, .btn:visited {
-    background: #009688;
+    background: blue;
     cursor: pointer;
   }
   
