@@ -14,10 +14,14 @@ async function getTablesData() {
 
 async function executeQuery(query) {
     try {
-        const response = await axios.post(`${apiBaseUrl}/db/execute-query`, {query: query});
+        const response = await axios.post(
+            `${apiBaseUrl}/db/execute-query`, 
+            { query: query },
+            { headers: { 'authorization': 'QmVhcmVyIHNvbWVBdXRob3JpemF0aW9uVG9rZW4=', 'Content-Type': 'application/json' } }
+        );
         return response.data;  
     } catch (error) {
-        console.error('Error fetching table data', error);
+        console.error('Error executing query', error);
         throw error; 
     }
 }
