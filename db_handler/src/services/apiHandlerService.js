@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiBaseUrl = 'http://localhost:8080';
+const apiBaseUrl = process.env.REACT_APP_API_HANDLER_URL;
 
 async function getTablesData() {
     try {
@@ -14,7 +14,6 @@ async function getTablesData() {
 
 async function executeQuery(query) {
     try {
-        console.log({query: query},'qqqqqqqqqqqqqqqqqqqq')
         const response = await axios.post(`${apiBaseUrl}/db/execute-query`, {query: query});
         return response.data;  
     } catch (error) {
