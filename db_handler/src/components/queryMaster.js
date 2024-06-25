@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { executeQuery } from '../services/apiHandlerService';
+import { useNavigate } from 'react-router-dom';
 import './QueryMaster.css';
 
 const QueryMaster = () => {
+  const navigate = useNavigate();
   const [query, setQuery] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -12,6 +14,7 @@ const QueryMaster = () => {
       const response = await executeQuery(query);
       if (response.success) {
         alert('Query Executed Successfully!!!');
+        setQuery('');
       }
     } catch (error) {
       console.error('Error executing query:', error);
@@ -26,10 +29,17 @@ const QueryMaster = () => {
     submitQuery();
   };
 
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="flex-center position-ref full-height">
       <div className="content">
-        <h5 className="title">Query Master</h5>
+        <div class='heading'>
+          <h3 onClick={handleBackClick} style={{ cursor: 'pointer' }}>Back</h3>
+          <h5 className="query-title">Query Master</h5>
+        </div>
         <form id="queryFrm" name="queryFrm" onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Enter The Query *</label>

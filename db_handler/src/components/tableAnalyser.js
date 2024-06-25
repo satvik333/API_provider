@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getTablesData } from '../services/apiHandlerService';
+import { useNavigate } from 'react-router-dom';
 import './TableAnalyser.css';
 
 const TableAnalyser = () => {
+  const navigate = useNavigate();
+
   const [tableData, setTableData] = useState([]);
   const [expanded, setExpanded] = useState(null);
 
@@ -31,10 +34,17 @@ const TableAnalyser = () => {
 
   const tableNames = extractTableNames(tableData);
 
+  const handleBackClick = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="table-analyser-container">
       <div className="table-list">
-        <h1 className="title">Tables</h1>
+        <div class='table-heading'>
+          <h2 onClick={handleBackClick} style={{ cursor: 'pointer' }}>Go Back</h2>
+          <h1 className="table-title">Tables</h1>
+        </div>
         {tableNames.map((tableName, index) => (
           <div
             key={index}
